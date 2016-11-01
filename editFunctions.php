@@ -4,7 +4,7 @@
 	
 	function getSingleCarData($edit_id){
     
-        $database = "if16_romil";
+        $database = "if16_karlkruu";
 
 		//echo "id on ".$edit_id;
 		
@@ -44,7 +44,7 @@
 
 	function updateCar($id, $plate, $color){
     	
-        $database = "if16_romil";
+        $database = "if16_karlkruu";
 
 		
 		$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
