@@ -98,6 +98,7 @@
 			$html.="<td>".$c->id."</td>";
 			$html.="<td>".$c->plate."</td>";
 			$html.="<td style='background-color:".$c->color."'>".$c->color."</td>";
+			$html .= "<td><a href='edit.php?id=".$c->id."'>edit.php</a></td>";
 		$html.="</tr>";
 		
 	}
