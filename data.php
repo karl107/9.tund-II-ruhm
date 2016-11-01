@@ -49,7 +49,7 @@
 	
 	
 ?>
-<h1>Data</h1>
+<center><h1>Data</h1>
 
 
 
@@ -117,5 +117,7 @@
 	
 	echo $listHtml;
 	
+		
 
 ?>
+

@@ -10,7 +10,7 @@
 		
 		$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
 		
-		$stmt = $mysqli->prepare("SELECT plate, color FROM cars_and_colors WHERE id=?");
+		$stmt = $mysqli->prepare("SELECT plate, color FROM cars_and_colors WHERE id=? AND deleted IS NULL");
 
 		$stmt->bind_param("i", $edit_id);
 		$stmt->bind_result($plate, $color);
@@ -19,7 +19,7 @@
 		//tekitan objekti
 		$car = new Stdclass();
 		
-		//saime ühe rea andmeid
+		//saime Ã¼he rea andmeid
 		if($stmt->fetch()){
 			// saan siin alles kasutada bind_result muutujaid
 			$car->plate = $plate;
@@ -27,9 +27,9 @@
 			
 			
 		}else{
-			// ei saanud rida andmeid kätte
+			// ei saanud rida andmeid kÃ¤tte
 			// sellist id'd ei ole olemas
-			// see rida võib olla kustutatud
+			// see rida vÃµib olla kustutatud
 			header("Location: data.php");
 			exit();
 		}
@@ -49,13 +49,34 @@
 		
 		$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
 		
-		$stmt = $mysqli->prepare("UPDATE cars_and_colors SET plate=?, color=? WHERE id=?");
+		$stmt = $mysqli->prepare("UPDATE cars_and_colors SET plate=?, color=? WHERE id=? AND deleted IS NULL");
 		$stmt->bind_param("ssi",$plate, $color, $id);
 		
-		// kas õnnestus salvestada
+		// kas Ãµnnestus salvestada
 		if($stmt->execute()){
-			// õnnestus
-			echo "salvestus õnnestus!";
+			// Ãµnnestus
+			echo "salvestus Ãµnnestus!";
+		}
+		
+		$stmt->close();
+		$mysqli->close();
+		
+	}
+	
+	function deleteCar($id){
+    	
+        $database = "if16_karlkruu";
+
+	
+		$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
+		
+		$stmt = $mysqli->prepare("UPDATE cars_and_colors SET deleted=NOW() where id=? AND deleted IS NULL");
+		$stmt->bind_param("i",$id);
+		
+		// kas Ãµnnestus salvestada
+		if($stmt->execute()){
+			// Ãµnnestus
+			echo "kustutamine Ãµnnestus!";
 		}
 		
 		$stmt->close();
